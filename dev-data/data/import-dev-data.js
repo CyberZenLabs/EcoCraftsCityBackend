@@ -9,7 +9,7 @@ const User = require('./../../models/userModel')
 
 const DB = 'mongodb+srv://CyberZenBackend:xuPhgVwIFgqliFN4@ecocraftscitydb.afdic.mongodb.net/EcoCraftsCityDB?retryWrites=true&w=majority';
 
-console.log(DB)
+
 
 mongoose
   .connect(DB, {
