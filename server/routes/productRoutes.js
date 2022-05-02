@@ -28,6 +28,8 @@ router
   .get(productController.getAllProducts)
   .post(authController.protect, productController.createProduct);
 
+
+  
 router
   .route('/:id')
   .get(productController.getProduct)
