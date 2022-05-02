@@ -13,10 +13,10 @@ module.exports = class Email {
   }
 
   newTransport() {
-    if (process.env.NODE_ENV === 'production') {
-      // Sendgrid
-      return;
-    }
+    // if (process.env.NODE_ENV === 'production') {
+    //   // Sendgrid
+    //   return;
+    // }
 
     return nodemailer.createTransport({
       host: process.env.EMAIL_HOST,
@@ -41,7 +41,6 @@ module.exports = class Email {
       url: this.url
     });
     // 1) Render HTML based on a pug template
-    const html = '';
 
     // 2) Define email options
     const mailOptions = {
@@ -49,7 +48,7 @@ module.exports = class Email {
       to: this.to,
       subject,
       html: compiledHbsTemplate,
-      text: htmlToText.fromString(html)
+      text: htmlToText.fromString(compiledHbsTemplate)
     };
 
     // 3) Create a transport and send email
