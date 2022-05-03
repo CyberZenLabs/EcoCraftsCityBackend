@@ -23,10 +23,18 @@ const tourReviewRouter = require('./routes/tourReviewRoutes');
 const app = express();
 app.all('*', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'X-Requested-With');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+  res.header('Access-Control-Allow-Headers', '*');
+  res.header(
+    'Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS'
+  );
   next();
 });
+
+app.use(cors());
+app.options('*', cors());
+app.enable('trust proxy');
+
 // const headers = (req, res, next) => {
 //   res.setHeader('Access-Control-Allow-Origin', '*');
 //   res.setHeader(
