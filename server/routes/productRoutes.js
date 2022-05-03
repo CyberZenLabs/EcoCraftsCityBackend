@@ -1,7 +1,7 @@
 const express = require('express');
 const productController = require('./../controllers/productController');
 const authController = require('./../controllers/authController');
-const reviewRouter = require('./../routes/reviewRoutes');
+const productReviewRouter = require('./productReviewRoutes');
 
 const router = express.Router();
 
@@ -10,7 +10,7 @@ const router = express.Router();
 // POST /product/234fad4/reviews
 // GET /product/234fad4/reviews
 
-router.use('/:productId/reviews', reviewRouter);
+router.use('/:productId/reviews', productReviewRouter);
 
 router
   .route('/top-5-cheap')
@@ -28,8 +28,6 @@ router
   .get(productController.getAllProducts)
   .post(authController.protect, productController.createProduct);
 
-
-  
 router
   .route('/:id')
   .get(productController.getProduct)

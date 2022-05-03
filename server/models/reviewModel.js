@@ -8,6 +8,12 @@ const reviewSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Review can not be empty!']
     },
+    type: {
+      type: String,
+      enum: ['product', 'tour'],
+      required: [true, 'A review must have a type'],
+      default: 'product'
+    },
     rating: {
       type: Number,
       min: 1,
@@ -20,7 +26,22 @@ const reviewSchema = new mongoose.Schema(
     tour: {
       type: mongoose.Schema.ObjectId,
       ref: 'Tour',
-      required: [true, 'Review must belong to a tour.']
+      required: [
+        function() {
+          return this.type === 'tour';
+        },
+        'A review must have a tour'
+      ]
+    },
+    product: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Product',
+      required: [
+        function() {
+          return this.type === 'product';
+        },
+        'A review must have a product'
+      ]
     },
     user: {
       type: mongoose.Schema.ObjectId,
@@ -35,7 +56,7 @@ const reviewSchema = new mongoose.Schema(
 );
 
 reviewSchema.index({ tour: 1, user: 1 }, { unique: true });
-
+reviewSchema.index({ product: 1, user: 1 }, { unique: true });
 reviewSchema.pre(/^find/, function(next) {
   // this.populate({
   //   path: 'tour',
@@ -49,6 +70,7 @@ reviewSchema.pre(/^find/, function(next) {
     path: 'user',
     select: 'name photo'
   });
+
   next();
 });
 

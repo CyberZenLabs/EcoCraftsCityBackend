@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const Tour = require('./../../models/tourModel');
 const Review = require('./../../models/reviewModel');
 const User = require('./../../models/userModel');
+const Product = require('../../models/productModel');
 
 dotenv.config({ path: './config.env' });
 
@@ -43,6 +44,7 @@ const importData = async () => {
 // DELETE ALL DATA FROM DB
 const deleteData = async () => {
   try {
+    await Product.deleteMany();
     await Tour.deleteMany();
     await User.deleteMany();
     await Review.deleteMany();
