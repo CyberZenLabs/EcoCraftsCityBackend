@@ -21,28 +21,23 @@ const tourReviewRouter = require('./routes/tourReviewRoutes');
 
 const app = express();
 
-// app.use(
-//   cors({
-//     origin: '*',
-//     methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH']
-//   })
-// );
+app.use(cors({ credentials: true, origin: true }));
 
-// app.options('*', cors());
-const headers = (req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader(
-    'Access-Control-Allow-Methods',
-    'GET, POST, OPTIONS, PUT, PATCH, DELETE'
-  );
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'X-Requested-With,content-type'
-  );
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  next();
-};
-app.use(headers());
+app.options('*', cors());
+// const headers = (req, res, next) => {
+//   res.setHeader('Access-Control-Allow-Origin', '*');
+//   res.setHeader(
+//     'Access-Control-Allow-Methods',
+//     'GET, POST, OPTIONS, PUT, PATCH, DELETE'
+//   );
+//   res.setHeader(
+//     'Access-Control-Allow-Headers',
+//     '*'
+//   );
+//   res.setHeader('Access-Control-Allow-Credentials', true);
+//   next();
+// };
+// app.use(headers());
 // 1) GLOBAL MIDDLEWARES
 // Serving static files
 
