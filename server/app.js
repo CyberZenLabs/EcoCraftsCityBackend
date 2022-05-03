@@ -1,12 +1,11 @@
-const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
-const helmet = require('helmet');
+// const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
-const cors = require('cors')
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
 const AppError = require('./utils/appError');
@@ -22,7 +21,12 @@ const tourReviewRouter = require('./routes/tourReviewRoutes');
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: '*',
+    methods: ['GET', 'POST', 'DELETE', 'UPDATE', 'PUT', 'PATCH']
+  })
+);
 
 app.options('*', cors());
 
@@ -30,7 +34,7 @@ app.options('*', cors());
 // Serving static files
 
 // Set security HTTP headers
-app.use(helmet());
+// app.use(helmet());
 
 // Development logging
 if (process.env.NODE_ENV === 'development') {
