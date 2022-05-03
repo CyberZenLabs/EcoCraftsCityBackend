@@ -7,7 +7,8 @@ const Handlebars = require('handlebars');
 module.exports = class Email {
   constructor(user, url) {
     this.to = user.email;
-    this.firstName = user.name.split(' ')[0];
+    this.firstName = user.firstName;
+    this.lastName = user.lastName;
     this.url = url;
     this.from = `Sam Singer <${process.env.EMAIL_FROM}>`;
   }
