@@ -3,29 +3,16 @@ const htmlToText = require('html-to-text');
 const fs = require('fs');
 const path = require('path');
 const Handlebars = require('handlebars');
+var postmark = require('postmark');
+
+var client = new postmark.ServerClient('9277babd-4736-42f6-b8c5-fcbc211c1152');
 
 module.exports = class Email {
   constructor(user, url) {
     this.to = user.email;
-    this.firstName = user.name.split(' ')[0];
+    // this.firstName = user.name.split(' ')[0];
     this.url = url;
     this.from = `Sam Singer <${process.env.EMAIL_FROM}>`;
-  }
-
-  newTransport() {
-    // if (process.env.NODE_ENV === 'production') {
-    //   // Sendgrid
-    //   return;
-    // }
-
-    return nodemailer.createTransport({
-      host: process.env.EMAIL_HOST,
-      port: process.env.EMAIL_PORT,
-      auth: {
-        user: process.env.EMAIL_USERNAME,
-        pass: process.env.EMAIL_PASSWORD
-      }
-    });
   }
 
   // Send the actual email
@@ -40,19 +27,20 @@ module.exports = class Email {
       firstName: this.firstName,
       url: this.url
     });
+    console.log(hbsTemplate);
+    await client.sendEmail({
+      From: 'samsinger@geoeco.co',
+      To: 'samsinger@geoeco.co',
+      Subject: 'Hello from Postmark',
+      HtmlBody: compiledHbsTemplate,
+      MessageStream: 'outbound'
+    });
     // 1) Render HTML based on a pug template
 
     // 2) Define email options
-    const mailOptions = {
-      from: this.from,
-      to: this.to,
-      subject,
-      html: compiledHbsTemplate,
-      text: htmlToText.fromString(compiledHbsTemplate)
-    };
 
     // 3) Create a transport and send email
-    await this.newTransport().sendMail(mailOptions);
+    // await this.newTransport().sendMail(mailOptions);
   }
 
   async sendWelcome() {

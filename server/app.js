@@ -15,6 +15,7 @@ const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reviewRoutes');
 const bookingRouter = require('./routes/bookingRoutes');
 const productRouter = require('./routes/productRoutes');
+const storeRouter = require('./routes/storeRoutes');
 const app = express();
 
 // 1) GLOBAL MIDDLEWARES
@@ -60,7 +61,7 @@ app.use(
     ]
   })
 );
-
+app.use(express.static('public/img'));
 // Test middleware
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
@@ -75,6 +76,8 @@ app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);
 app.use('/api/v1/bookings', bookingRouter);
 app.use('/api/v1/products', productRouter);
+app.use('/api/v1/store', storeRouter);
+// app.use('/api/v1/cart', cartRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));

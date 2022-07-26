@@ -12,9 +12,17 @@ router
   .post(reviewController.setTourUserIds, reviewController.createReview);
 
 router
-  .route('/:id')
+  .route('/tour/:tourId')
   .get(reviewController.getReview)
   .patch(reviewController.updateReview)
-  .delete(reviewController.deleteReview);
+  .delete(reviewController.deleteReview)
+  .post(reviewController.setTourUserIds, reviewController.createReview);
+
+router
+  .route('/product/:productId')
+  .get(reviewController.getReview)
+  .patch(reviewController.updateReview)
+  .delete(reviewController.deleteReview)
+  .post(reviewController.setProductUserIds, reviewController.createReview);
 
 module.exports = router;
