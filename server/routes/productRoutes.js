@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const express = require('express');
 const productController = require('./../controllers/productController');
 const authController = require('./../controllers/authController');
@@ -47,3 +48,52 @@ router
   );
 
 module.exports = router;
+=======
+const express = require('express');
+const productController = require('./../controllers/productController');
+const authController = require('./../controllers/authController');
+const productReviewRouter = require('./productReviewRoutes');
+
+const router = express.Router();
+
+// router.param('id', productController.checkID);
+
+// POST /product/234fad4/reviews
+// GET /product/234fad4/reviews
+
+router.use('/:productId/reviews', productReviewRouter);
+
+router
+  .route('/top-5-cheap')
+  .get(productController.aliasTopProducts, productController.getAllProducts);
+
+router.route('/product-stats').get(productController.getProductStats);
+router.route('/monthly-plan/:year').get(
+  authController.protect,
+
+  productController.getMonthlyPlan
+);
+
+router
+  .route('/')
+  .get(productController.getAllProducts)
+  .post(authController.protect, productController.createProduct);
+
+router
+  .route('/:id')
+  .get(productController.getProduct)
+  .patch(
+    authController.protect,
+
+    productController.uploadProductImages,
+    productController.resizeProductImages,
+    productController.updateProduct
+  )
+  .delete(
+    authController.protect,
+
+    productController.deleteProduct
+  );
+
+module.exports = router;
+>>>>>>> 47409b544362711580c35c56796ee46b6976f1b1
