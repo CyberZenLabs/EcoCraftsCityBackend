@@ -18,6 +18,19 @@ const productRouter = require('./routes/productRoutes');
 const storeRouter = require('./routes/storeRoutes');
 const app = express();
 
+app.all('*', function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+
+  res.header('Access-Control-Allow-Headers', '*');
+  res.header(
+    'Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS'
+  );
+  next();
+});
+
+app.use(cors());
+app.options('*', cors());
+app.enable('trust proxy');
 // 1) GLOBAL MIDDLEWARES
 // Serving static files
 
