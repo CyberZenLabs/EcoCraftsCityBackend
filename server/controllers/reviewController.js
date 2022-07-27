@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 const Review = require('./../models/reviewModel');
 const factory = require('./handlerFactory');
 // const catchAsync = require('./../utils/catchAsync');
@@ -27,6 +28,8 @@ exports.createReview = factory.createOne(Review);
 exports.updateReview = factory.updateOne(Review);
 exports.deleteReview = factory.deleteOne(Review);
 =======
+=======
+>>>>>>> 47409b544362711580c35c56796ee46b6976f1b1
 const AppError = require('../utils/appError');
 const catchAsync = require('../utils/catchAsync');
 const Review = require('./../models/reviewModel');
