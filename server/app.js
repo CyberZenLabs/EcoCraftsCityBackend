@@ -1,3 +1,4 @@
+
 const express = require('express');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
@@ -108,6 +109,7 @@ app.use('/api/v1/tour-reviews', tourReviewRouter);
 app.use('/api/v1/product-reviews', productReviewRouter);
 app.use('/api/v1/bookings', bookingRouter);
 app.use('/api/v1/products', productRouter);
+app.use('/api/v1/store', storeRouter);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
@@ -116,3 +118,4 @@ app.all('*', (req, res, next) => {
 app.use(globalErrorHandler);
 
 module.exports = app;
+

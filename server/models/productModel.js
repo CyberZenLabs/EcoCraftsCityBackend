@@ -122,14 +122,7 @@ productSchema.pre(/^find/, function(next) {
   next();
 });
 
-productSchema.pre(/^find/, function(next) {
-  this.populate({
-    path: 'guides',
-    select: '-__v -passwordChangedAt'
-  });
 
-  next();
-});
 
 productSchema.post(/^find/, function(docs, next) {
   console.log(`Query took ${Date.now() - this.start} milliseconds!`);
