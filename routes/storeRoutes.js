@@ -11,10 +11,6 @@ router
   .route('/:id')
   .delete(storeController.deleteStore)
   .get(storeController.getStore)
-  .patch(
-    storeController.uploadStoreImages,
-    storeController.saveStoreImages,
-    storeController.updateStore
-  );
+  .patch(storeController.uploadStoreImages, storeController.updateStore);
 
 module.exports = router;

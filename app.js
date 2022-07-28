@@ -74,7 +74,9 @@ app.use(
     ]
   })
 );
-app.use(express.static('public/img'));
+// app.use(express.static('public/img'));
+app.use(express.static(path.join(__dirname, 'public/img')));
+
 // Test middleware
 app.use((req, res, next) => {
   req.requestTime = new Date().toISOString();
@@ -83,7 +85,7 @@ app.use((req, res, next) => {
 });
 
 // 3) ROUTES
-
+console.log('dirname', __dirname);
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);

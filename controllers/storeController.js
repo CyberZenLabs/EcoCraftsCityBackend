@@ -7,10 +7,9 @@ const multerStorage = multer.diskStorage({
     cb(null, 'public/img/stores');
   },
   filename: (req, file, cb) => {
-    console.log(file);
-
+    console.log('dirname', __dirname);
     const ext = file.mimetype.split('/')[1];
-    cb(null, `user-${'test'}-${Date.now()}.${ext}`);
+    cb(null, `user-${'req.user.id'}-${Date.now()}.${ext}`);
   }
 });
 
@@ -32,23 +31,6 @@ exports.uploadStoreImages = upload.fields([
   { name: 'storePhoto', maxCount: 1 },
   { name: 'storeAboutPhotos', maxCount: 15 }
 ]);
-
-exports.saveStoreImages = catchAsync(async (req, res, next) => {
-  if (!req.files) return next();
-
-  console.log(req.files);
-
-  // req.file.filename = `user-${req.user.id}-${Date.now()}.jpeg`;
-
-  next();
-});
-
-exports.updateStore = catchAsync((req, res, next) => {
-  console.log('aaa');
-  res.send({
-    hello: req.files
-  });
-});
 
 exports.getAllStores = factory.getAll(Store);
 exports.getStore = factory.getOne(Store, { path: 'reviews' });

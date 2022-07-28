@@ -18,21 +18,56 @@ exports.deleteOne = Model =>
 
 exports.updateOne = Model =>
   catchAsync(async (req, res, next) => {
-    const doc = await Model.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-      runValidators: true
-    });
-
-    if (!doc) {
-      return next(new AppError('No document found with that ID', 404));
-    }
-
-    res.status(200).json({
-      status: 'success',
-      data: {
-        data: doc
+    if (!req.files) {
+      const doc = await Model.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true
+      });
+      
+      if (!doc) {
+        return next(new AppError('No document found with that ID', 404));
       }
-    });
+
+      res.status(200).json({
+        status: 'success',
+        data: {
+          data: doc
+        }
+      });
+    } else if (req.files) {
+      if (req.files.storeBanner) {
+        req.body.storeBanner = req.files.storeBanner[0].filename;
+      }
+      if (req.files.storePhoto) {
+        req.body.storePhoto = req.files.storePhoto[0].filename;
+      }
+
+      if (req.files.storeAboutPhotos) {
+        const photoNames = [];
+
+        req.files.storeAboutPhotos.map(photo =>
+          photoNames.push(photo.filename)
+        );
+
+        req.body.storeAboutPhotos = photoNames;
+      }
+
+      const doc = await Model.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true
+      });
+
+      if (!doc) {
+        return next(new AppError('No document found with that ID', 404));
+      }
+   
+      res.status(200).json({
+        status: 'success',
+        data: {
+          data: doc
+        }
+      });
+    }
   });
 
 exports.createOne = Model =>
