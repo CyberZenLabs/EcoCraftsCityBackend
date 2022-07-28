@@ -7,7 +7,7 @@ const storeSchema = new mongoose.Schema({
   },
   storePhoto: {
     type: String,
-    default: 'defaultStore.png'
+    default: 'defaultStore.svg'
   },
   storeName: {
     type: String,
