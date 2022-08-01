@@ -122,8 +122,6 @@ productSchema.pre(/^find/, function(next) {
   next();
 });
 
-
-
 productSchema.post(/^find/, function(docs, next) {
   console.log(`Query took ${Date.now() - this.start} milliseconds!`);
   next();

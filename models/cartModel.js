@@ -1,34 +1,49 @@
 const mongoose = require('mongoose');
 
-const cartSchema = new mongoose.Schema({
-  product: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'Product',
-    required: [true, 'Заказ должен иметь продукт']
+let ItemSchema = new mongoose.Schema(
+  {
+    productId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Product'
+    },
+    quantity: {
+      type: Number,
+      required: true,
+      min: [1, 'Quantity can not be less then 1.']
+    },
+    price: {
+      type: Number,
+      required: true
+    },
+    total: {
+      type: Number,
+      required: true
+    }
   },
-  user: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'User',
-    required: [true, 'Для покупки нужен пользователь']
-  },
-  price: {
-    type: Number,
-    required: [true, 'цена']
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now()
+  {
+    timestamps: true
   }
-});
+);
+Item = mongoose.model('Item', ItemSchema);
 
-bookingSchema.pre(/^find/, function(next) {
-    this.populate('product').populate({
-        path: 'product',
-        select: 'name'
-    })
-  
-})
+const CartSchema = new mongoose.Schema(
+  {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    },
 
-const Cart = mongoose.model('Cart', cartSchema);
+    items: [ItemSchema],
 
-module.exports = Cart;
+    subTotal: {
+      default: 0,
+      type: Number
+    }
+  },
+  {
+    timestamps: true
+  }
+);
+Cart = mongoose.model('Cart', CartSchema);
+
+module.exports = { Cart, Item };
