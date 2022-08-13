@@ -21,10 +21,10 @@ const reviewSchema = new mongoose.Schema(
       type: mongoose.Schema.ObjectId,
       ref: 'Tour'
     },
-    product: {
+    store: {
       type: mongoose.Schema.ObjectId,
-      ref: 'Product',
-      required: [true, 'Review must belong to a user']
+      ref: 'Store',
+      required: [true, 'Review must belong to a store']
     },
     user: {
       type: mongoose.Schema.ObjectId,

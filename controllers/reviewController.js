@@ -11,9 +11,9 @@ exports.setTourUserIds = (req, res, next) => {
   next();
 };
 
-exports.setProductUserIds = (req, res, next) => {
+exports.setStoreUserIds = (req, res, next) => {
   // Allow nested routes
-  if (!req.body.product) req.body.product = req.params.productId;
+  if (!req.body.store) req.body.store = req.params.storeId;
 
   if (!req.body.user) req.body.user = req.user.id;
 

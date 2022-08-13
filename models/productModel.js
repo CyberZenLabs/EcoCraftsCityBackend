@@ -63,10 +63,14 @@ const productSchema = new mongoose.Schema(
       default: Date.now(),
       select: false
     },
-
     secretproduct: {
       type: Boolean,
       default: false
+    },
+    storeId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Store',
+      required: [true]
     }
   },
   {
@@ -85,11 +89,7 @@ productSchema.virtual('durationWeeks').get(function() {
 });
 
 // Virtual populate
-productSchema.virtual('reviews', {
-  ref: 'Review',
-  foreignField: 'product',
-  localField: '_id'
-});
+
 
 // DOCUMENT MIDDLEWARE: runs before .save() and .create()
 productSchema.pre('save', function(next) {
