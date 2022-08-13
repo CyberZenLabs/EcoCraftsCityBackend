@@ -19,10 +19,10 @@ router
   .post(reviewController.setTourUserIds, reviewController.createReview);
 
 router
-  .route('/product/:productId')
+  .route('/store/:storeId')
   .get(reviewController.getReview)
   .patch(reviewController.updateReview)
   .delete(reviewController.deleteReview)
-  .post(reviewController.setProductUserIds, reviewController.createReview);
+  .post(reviewController.setStoreUserIds, reviewController.createReview);
 
 module.exports = router;
